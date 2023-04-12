@@ -1,9 +1,9 @@
 import os
 import sys
 
-import numpy 
 import pandas as pd
 import dill
+import pickle
 from sklearn.metrics import r2_score
 from sklearn.model_selection import GridSearchCV
 
@@ -17,7 +17,7 @@ def save_object(file_path, obj):
         os.makedirs(dir_path, exist_ok=True)
 
         with open(file_path, "wb") as f_obj:
-            dill.dump(obj, f_obj)
+            pickle.dump(obj, f_obj)
         
     except Exception as e:
         raise CustomException(e, sys)
@@ -54,6 +54,6 @@ def evaluate_model(X_train, y_train, X_test, y_test, models, params, cv=3, n_job
 def load_object(file_path):
     try:
         with open(file_path, "rb") as f_obj:
-            return dill.load(f_obj)
+            return pickle.load(f_obj)
     except Exception as e:
         raise CustomException(e, sys)
